@@ -1,0 +1,36 @@
+{
+    "name": "messagesender",
+    "version": "1.0.0",
+    "description": "Overcharged wrapper over the send message functions of chrome/browser extensions APIs",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "tsc",
+        "start:watch": "tsc --watch"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/wbet/MessageSender.git"
+    },
+    "keywords": [
+        "Chrome",
+        "Firefox",
+        "Browser",
+        "extension",
+        "tools",
+        "wrapper",
+        "message",
+        "send",
+        "pass"
+    ],
+    "author": "Iulian Preda",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/wbet/MessageSender/issues"
+    },
+    "homepage": "https://github.com/wbet/MessageSender#readme",
+    "dependencies": {
+        "@types/chrome": "^0.0.133",
+        "@types/firefox-webext-browser": "^82.0.0",
+        "typescript": "^4.2.2"
+    }
+}
