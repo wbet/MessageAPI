@@ -1,2 +1,3 @@
-# MessageSender
-Overcharged wrapper over the send message functions of chrome/browser extensions APIs
+# Message API
+
+Overcharged wrapper over the functions of chrome's/browser's message APIs

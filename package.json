@@ -1,7 +1,7 @@
 {
-    "name": "messagesender",
+    "name": "messageapi",
     "version": "1.0.0",
-    "description": "Overcharged wrapper over the send message functions of chrome/browser extensions APIs",
+    "description": "Overcharged wrapper over the functions of chrome's/browser's message APIs",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "tsc",
