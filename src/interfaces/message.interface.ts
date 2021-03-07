@@ -16,10 +16,16 @@ export interface Message extends MessagePath {
 export interface MessagePath {
     source?: MessageLocation;
     destination?: MessageLocation;
-    filter?: MessagePathFilter;
+    filters?: MessagePathFilter;
 }
 
 export interface MessageOptions {
     extensionId?: string;
     options?: MessageSendOptions | MessageTabsSendOptions;
 }
+
+export type MessageReceivedCallback = (
+    data: any,
+    sender?: chrome.runtime.MessageSender | browser.runtime.MessageSender,
+    sendResponse?: (response?: any) => void
+) => void;
