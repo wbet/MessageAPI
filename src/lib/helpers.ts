@@ -30,11 +30,8 @@ export function checkBrowser() {
 /** @internal */
 export async function getCurrentTab() {
     const runtimeType = globalThis.browser ?? globalThis.chrome;
-
-    const tabs = checkChrome()
-        ? ((await callbackToPromise(runtimeType.tabs.query, [{ active: true, currentWindow: true }])) as chrome.tabs.Tab[])
-        : await runtimeType.tabs.query({ active: true, currentWindow: true });
-
+    const query = { active: true, currentWindow: true };
+    const tabs = checkChrome() ? ((await callbackToPromise(runtimeType.tabs.query, [query])) as chrome.tabs.Tab[]) : await runtimeType.tabs.query(query);
     return tabs[0];
 }
 
