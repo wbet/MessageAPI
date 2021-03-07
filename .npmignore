@@ -1,0 +1,9 @@
+**/src/**
+**/node_modules
+
+**/*.tsbuildinfo
+**/*.thumbs
+**/.prettierrc
+**/package-lock.json
+**/tsconfig.json
+**/.gitignore
