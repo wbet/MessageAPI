@@ -1,14 +1,8 @@
 import { MessageLocation } from 'src/enums/message-location';
 
-export type SendMessageParams =
-    | [message: Message, options?: MessageSendOptions | MessageTabsSendOptions]
-    | [extensionId: string, message: any, options?: MessageSendOptions | MessageTabsSendOptions];
+export type SendMessageParams = [message: Message, options?: MessageSendOptions | MessageTabsSendOptions] | [extensionId: string, message: any, options?: MessageSendOptions | MessageTabsSendOptions];
 export interface MessageSendOptions extends chrome.runtime.MessageOptions {}
 export interface MessageTabsSendOptions extends chrome.tabs.MessageSendOptions {}
-export interface MessagePathFilter {
-    [filterName: string]: string | number | boolean;
-}
-
 export interface Message<TData = any> extends MessagePath {
     data: TData;
 }
@@ -18,14 +12,13 @@ export interface MessagePath {
     destination?: MessageLocation;
     filters?: MessagePathFilter;
 }
+export interface MessagePathFilter {
+    [filterName: string]: string | number | boolean;
+}
 
 export interface MessageOptions {
     extensionId?: string;
     options?: MessageSendOptions | MessageTabsSendOptions;
 }
 
-export type MessageReceivedCallback<TData = any, TResponseData = any> = (
-    data: TData,
-    sender?: chrome.runtime.MessageSender | browser.runtime.MessageSender,
-    sendResponse?: (response?: TResponseData) => void
-) => void;
+export type MessageReceivedCallback<TData = any, TResponseData = any> = (data: TData, sender: chrome.runtime.MessageSender | browser.runtime.MessageSender, sendResponse: (response?: TResponseData) => void) => void;

@@ -3,41 +3,25 @@ import { MessageLocation } from 'src/enums/message-location';
 import { Message, MessagePath, MessagePathFilter, MessageReceivedCallback } from './interfaces/message.interface';
 
 /** Listens for messages from the background script */
-export function onMessageFromBackground<TData = any, TResponseData = any>(
-    currentLocation: MessageLocation,
-    filters: MessagePathFilter,
-    callback: MessageReceivedCallback<TData, TResponseData>
-) {
+export function onMessageFromBackground<TData = any, TResponseData = any>(currentLocation: MessageLocation, filters: MessagePathFilter, callback: MessageReceivedCallback<TData, TResponseData>) {
     const messagePath: MessagePath = { source: MessageLocation.Background, destination: currentLocation, filters };
     onMessage(messagePath, callback);
 }
 
 /** Listens for messages from the options page */
-export function onMessageFromOptions<TData = any, TResponseData = any>(
-    currentLocation: MessageLocation,
-    filters: MessagePathFilter,
-    callback: MessageReceivedCallback<TData, TResponseData>
-) {
+export function onMessageFromOptions<TData = any, TResponseData = any>(currentLocation: MessageLocation, filters: MessagePathFilter, callback: MessageReceivedCallback<TData, TResponseData>) {
     const messagePath: MessagePath = { source: MessageLocation.Options, destination: currentLocation, filters };
     onMessage(messagePath, callback);
 }
 
 /** Listens for messages from the popup page */
-export function onMessageFromPopup<TData = any, TResponseData = any>(
-    currentLocation: MessageLocation,
-    filters: MessagePathFilter,
-    callback: MessageReceivedCallback<TData, TResponseData>
-) {
+export function onMessageFromPopup<TData = any, TResponseData = any>(currentLocation: MessageLocation, filters: MessagePathFilter, callback: MessageReceivedCallback<TData, TResponseData>) {
     const messagePath: MessagePath = { source: MessageLocation.Popup, destination: currentLocation, filters };
     onMessage(messagePath, callback);
 }
 
 /** Listens for messages from the content script */
-export function onMessageFromContentScript<TData = any, TResponseData = any>(
-    currentLocation: MessageLocation,
-    filters: MessagePathFilter,
-    callback: MessageReceivedCallback<TData, TResponseData>
-) {
+export function onMessageFromContentScript<TData = any, TResponseData = any>(currentLocation: MessageLocation, filters: MessagePathFilter, callback: MessageReceivedCallback<TData, TResponseData>) {
     const messagePath: MessagePath = { source: MessageLocation.Content, destination: currentLocation, filters };
     onMessage(messagePath, callback);
 }
