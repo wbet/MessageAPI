@@ -1,8 +1,10 @@
+/** @internal */
 export async function promiseToCallback(promise: Promise<any>, callback: (...args: any) => void) {
     const result = await promise;
     return callback(result);
 }
 
+/** @internal */
 export function callbackToPromise(func: (...args: any[]) => void, args: any[]): Promise<any> {
     return new Promise((resolve, error) => {
         try {
@@ -15,14 +17,17 @@ export function callbackToPromise(func: (...args: any[]) => void, args: any[]): 
     });
 }
 
+/** @internal */
 export function checkChrome() {
     return !!globalThis.chrome;
 }
 
+/** @internal */
 export function checkBrowser() {
     return !!globalThis.browser;
 }
 
+/** @internal */
 export async function getCurrentTab() {
     const runtimeType = globalThis.browser ?? globalThis.chrome;
 
