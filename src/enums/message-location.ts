@@ -1,4 +1,4 @@
-export const enum MessageLocation {
+export enum MessageLocation {
     Content = 'Content',
     Background = 'Background',
     Popup = 'Popup',
