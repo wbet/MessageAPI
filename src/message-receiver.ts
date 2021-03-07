@@ -3,39 +3,55 @@ import { MessageLocation } from 'src/enums/message-location';
 import { Message, MessagePath, MessagePathFilter, MessageReceivedCallback } from './interfaces/message.interface';
 
 /** Listens for messages from the background script */
-export function onMessageFromBackground(currentLocation: MessageLocation, filters: MessagePathFilter, callback: MessageReceivedCallback) {
+export function onMessageFromBackground<TData = any, TResponseData = any>(
+    currentLocation: MessageLocation,
+    filters: MessagePathFilter,
+    callback: MessageReceivedCallback<TData, TResponseData>
+) {
     const messagePath: MessagePath = { source: MessageLocation.Background, destination: currentLocation, filters };
     onMessage(messagePath, callback);
 }
 
 /** Listens for messages from the options page */
-export function onMessageFromOptions(currentLocation: MessageLocation, filters: MessagePathFilter, callback: MessageReceivedCallback) {
+export function onMessageFromOptions<TData = any, TResponseData = any>(
+    currentLocation: MessageLocation,
+    filters: MessagePathFilter,
+    callback: MessageReceivedCallback<TData, TResponseData>
+) {
     const messagePath: MessagePath = { source: MessageLocation.Options, destination: currentLocation, filters };
     onMessage(messagePath, callback);
 }
 
 /** Listens for messages from the popup page */
-export function onMessageFromPopup(currentLocation: MessageLocation, filters: MessagePathFilter, callback: MessageReceivedCallback) {
+export function onMessageFromPopup<TData = any, TResponseData = any>(
+    currentLocation: MessageLocation,
+    filters: MessagePathFilter,
+    callback: MessageReceivedCallback<TData, TResponseData>
+) {
     const messagePath: MessagePath = { source: MessageLocation.Popup, destination: currentLocation, filters };
     onMessage(messagePath, callback);
 }
 
 /** Listens for messages from the content script */
-export function onMessageFromContentScript(currentLocation: MessageLocation, filters: MessagePathFilter, callback: MessageReceivedCallback) {
+export function onMessageFromContentScript<TData = any, TResponseData = any>(
+    currentLocation: MessageLocation,
+    filters: MessagePathFilter,
+    callback: MessageReceivedCallback<TData, TResponseData>
+) {
     const messagePath: MessagePath = { source: MessageLocation.Content, destination: currentLocation, filters };
     onMessage(messagePath, callback);
 }
 
 /** Listens for messages from anywhere */
-export function onMessageAnywhere(filters: MessagePathFilter, callback: MessageReceivedCallback) {
+export function onMessageAnywhere<TData = any, TResponseData = any>(filters: MessagePathFilter, callback: MessageReceivedCallback<TData, TResponseData>) {
     const messagePath: MessagePath = { filters };
     onMessage(messagePath, callback);
 }
 
 /** Listens for messages from custom sources and locations */
-export function onMessage(messagePath: MessagePath, callback: MessageReceivedCallback): void {
+export function onMessage<TData = any, TResponseData = any>(messagePath: MessagePath, callback: MessageReceivedCallback<TData, TResponseData>): void {
     const runtimeType = globalThis.browser ?? globalThis.chrome;
-    runtimeType.runtime.onMessage.addListener((message: Message, sender, sendResponse) => {
+    runtimeType.runtime.onMessage.addListener((message: Message<TData>, sender, sendResponse) => {
         if (checkPath(messagePath, message) && checkFilters(messagePath, message)) {
             callback(message.data, sender, sendResponse);
         }

@@ -9,8 +9,8 @@ export interface MessagePathFilter {
     [filterName: string]: string | number | boolean;
 }
 
-export interface Message<T = any> extends MessagePath {
-    data: T;
+export interface Message<TData = any> extends MessagePath {
+    data: TData;
 }
 
 export interface MessagePath {
@@ -24,8 +24,8 @@ export interface MessageOptions {
     options?: MessageSendOptions | MessageTabsSendOptions;
 }
 
-export type MessageReceivedCallback<T = any, U = any> = (
-    data: T,
+export type MessageReceivedCallback<TData = any, TResponseData = any> = (
+    data: TData,
     sender?: chrome.runtime.MessageSender | browser.runtime.MessageSender,
-    sendResponse?: (response?: U) => void
+    sendResponse?: (response?: TResponseData) => void
 ) => void;
