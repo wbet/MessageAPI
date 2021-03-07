@@ -30,7 +30,9 @@
     "homepage": "https://github.com/wbet/MessageSender#readme",
     "dependencies": {
         "@types/chrome": "^0.0.133",
-        "@types/firefox-webext-browser": "^82.0.0",
+        "@types/firefox-webext-browser": "^82.0.0"
+    },
+    "devDependencies": {
         "typescript": "^4.2.2"
     }
 }

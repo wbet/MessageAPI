@@ -1,4 +1,4 @@
-import { MessageLocation } from 'src/enums/message-location';
+import { MessageLocation } from '../enums/message-location';
 
 export type SendMessageParams = [message: Message, options?: MessageSendOptions | MessageTabsSendOptions] | [extensionId: string, message: any, options?: MessageSendOptions | MessageTabsSendOptions];
 export interface MessageSendOptions extends chrome.runtime.MessageOptions {}

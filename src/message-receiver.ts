@@ -1,5 +1,4 @@
-import { MessageLocation } from 'src/enums/message-location';
-
+import { MessageLocation } from './enums/message-location';
 import { Message, MessagePath, MessagePathFilter, MessageReceivedCallback } from './interfaces/message.interface';
 
 /** Listens for messages from the background script */
