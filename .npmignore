@@ -2,8 +2,8 @@
 **/node_modules
 
 **/*.tsbuildinfo
-**/*.thumbs
 **/.prettierrc
+**/.gitignore
 **/package-lock.json
 **/tsconfig.json
-**/.gitignore
+**/Thumbs.db
