@@ -267,6 +267,12 @@ import * as messageApi from 'message-api';
      // The 'messageApi' library is saved in a global variable
     messageApi.sendMessage(...)
 </script>
+
+// if you want to load the script from a CDN you can use
+<script src="https://unpkg.com/@wbet/message-api/dist/umd/index.min.js"></script>
+
+// or
+<script src="https://unpkg.com/@wbet/message-api/dist/web/index.min.js"></script>
 ```
 
 # Final note
