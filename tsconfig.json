@@ -4,11 +4,11 @@
         /* Basic Options */
         //"incremental": true /* Enable incremental compilation */,
         "target": "es6" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. */,
-        "module": "ESNext" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */,
+        "module": "es6" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */,
         "lib": ["ESNext", "dom"] /* Specify library files to be included in the compilation. */,
         // "allowJs": true /* Allow javascript files to be compiled. */,
         // "checkJs": true /* Report errors in .js files. */,
-        "declaration": true /* Generates corresponding '.d.ts' file. */,
+        //"declaration": true /* Generates corresponding '.d.ts' file. */,
         // "declarationMap": true /* Generates a sourcemap for each corresponding '.d.ts' file. */,
         // "sourceMap": true /* Generates corresponding '.map' file. */,
         //"outFile": "./dist/src/index.js" /* Concatenate and emit output to single file. */,
@@ -66,6 +66,6 @@
         "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */
     },
     "compileOnSave": true,
-    "include": ["**/*.ts"],
+    "include": ["./src/**/*.ts"],
     "exclude": ["node_modules", "**/*.spec.ts"]
 }
