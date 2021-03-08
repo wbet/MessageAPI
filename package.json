@@ -16,7 +16,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/wbet/MessageSender.git"
+        "url": "git+https://github.com/wbet/MessageAPI.git"
     },
     "keywords": [
         "Chrome",
@@ -32,9 +32,9 @@
     "author": "Iulian Preda",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/wbet/MessageSender/issues"
+        "url": "https://github.com/wbet/MessageAPI/issues"
     },
-    "homepage": "https://github.com/wbet/MessageSender#readme",
+    "homepage": "https://github.com/wbet/MessageAPI#readme",
     "dependencies": {
         "@types/chrome": "^0.0.133",
         "@types/firefox-webext-browser": "^82.0.0"

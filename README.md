@@ -227,8 +227,50 @@ onMessage({ filters: { name: 'AgentX' } }, (data, sender, sendResponse) => {
 });
 ```
 
+# Importing the library
+
+This library is available both as an unminified ES6 module and as a minfied libraries created by webpack.
+
+-   Using the unminified ES6 module each individual functions can be imported own their own. This is very useful if you use modern TS/JS, especially with a bundling system that can remove unused functions.
+
+```typescript
+import { onMessage } from '@wbet/message-api/message-receiver';
+```
+
+-   The minified libraries are compatible with ES6, AMD, CommonJS and the script tag.
+
+```typescript
+// import using CommonJS(in nodeJS)
+const messageApi = require('message-api');
+
+// import using AMD
+require(['messageApi'], (messageApi) => {
+    // ...
+});
+
+// import using ES6 modules
+import * as messageApi from 'message-api';
+```
+
+```html
+// import using the script tag - importing minified UML - I will use relative paths to exemplify
+<script src="./dist/umd/index.min.js"></script>
+<script>
+    // The 'messageApi' library is added as a property to the window object
+    window.messageApi.sendMessage(...)
+    // ...
+</script>
+
+// import using the script tag - importing minified script from the Web folder - I will use relative paths to exemplify
+<script src="./dist/web/index.min.js"></script>
+<script>
+     // The 'messageApi' library is saved in a global variable
+    messageApi.sendMessage(...)
+</script>
+```
+
 # Final note
 
-This library will be improved over time with API's like connect and sendNativeMessage.
+This library will be improved over time with APIs like connect and sendNativeMessage.
 
 If you found any bug please open an issue and it will be addressed as soon as humanly possible.
