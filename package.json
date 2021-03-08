@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "Overcharged wrapper over the functions of chrome's/browser's message APIs",
     "types": "./dist/esm/index.d.ts",
-    "main": "./dist/esm/index.js",
+    "main": "./dist/umd/index.min.js",
     "module": "./dist/esm/index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
