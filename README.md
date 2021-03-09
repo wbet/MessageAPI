@@ -14,40 +14,41 @@ All the available interfaces will be presented bellow in an explicit way.
 For Typescript users all the generics have 'any' the default so no explicit declaration is actually needed.
 
 ```typescript
-Message<T> {
+interface Message<T> {
     data: T;
-    source?: 'Content'|'Background'|'Popup'|'Options';
-    destination?: 'Content'|'Background'|'Popup'|'Options';
+    source?: 'Content' | 'Background' | 'Popup' | 'Options';
+    destination?: 'Content' | 'Background' | 'Popup' | 'Options';
     filters?: MessagePathFilter; //contains key value pairs with custom properties to filter on while receiving the message
 }
 
-export interface MessagePath {
-    source?: 'Content'|'Background'|'Popup'|'Options';
-    destination?: 'Content'|'Background'|'Popup'|'Options';
+interface MessagePath {
+    source?: 'Content' | 'Background' | 'Popup' | 'Options';
+    destination?: 'Content' | 'Background' | 'Popup' | 'Options';
     filters?: MessagePathFilter; //contains key value pairs with custom properties to filter on while receiving the message
 }
 
-export interface MessagePathFilter {
+interface MessagePathFilter {
     [filterName: string]: string | number | boolean;
 }
 
-export interface MessageOptions {
+interface MessageOptions {
     extensionId?: string; // required while sending a message to an extension (if not filled in it will send to your extension)
-    options?: {
-        /** Whether the TLS channel ID will be passed into onMessageExternal for processes that are listening for the connection event. */
-        includeTlsChannelId?: boolean;
-    } | {
-        /** Optional. Send a message to a specific frame identified by frameId instead of all frames in the tab. */
-        frameId?: number;
-    };
+    options?:
+        | {
+              /** Whether the TLS channel ID will be passed into onMessageExternal for processes that are listening for the connection event. */
+              includeTlsChannelId?: boolean;
+          }
+        | {
+              /** Optional. Send a message to a specific frame identified by frameId instead of all frames in the tab. */
+              frameId?: number;
+          };
 }
 
-export type MessageReceivedCallback<TData, TResponseData> = (
+type MessageReceivedCallback<TData, TResponseData> = (
     data: TData,
     sender?: runtime.MessageSender, //property from chrome/browser API
     sendResponse?: (response?: TResponseData) => void
 ) => void;
-
 ```
 
 ## Enums
