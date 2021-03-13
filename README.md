@@ -242,7 +242,7 @@ import { onMessage } from '@wbet/message-api/message-receiver';
 
 ```typescript
 // import using CommonJS(in nodeJS)
-const messageApi = require('message-api');
+const messageApi = require('@wbet/message-api');
 
 // import using AMD
 require(['messageApi'], (messageApi) => {
@@ -250,7 +250,7 @@ require(['messageApi'], (messageApi) => {
 });
 
 // import using ES6 modules
-import * as messageApi from 'message-api';
+import * as messageApi from '@wbet/message-api';
 ```
 
 ```html
