@@ -1,6 +1,6 @@
 import { MessageLocation } from './enums/message-location';
 import { Message, MessageOptions, MessagePathFilter, SendMessageParams } from './interfaces/message.interface';
-import { callbackToPromise, checkChrome, getCurrentTab } from './lib/helpers';
+import { callbackToPromise, checkBrowser, getCurrentTab } from './lib/helpers';
 
 /** Sends message to the background script */
 export function sendMessageToBackground<TData = any, TResponseData = any>(data: TData, source: MessageLocation, messageOptions?: MessageOptions, filters?: MessagePathFilter) {
@@ -42,16 +42,16 @@ export function sendMessageTo<TData = any, TResponseData = any>(message: Message
 
 function sendMessage<TResponseData = any>(...args: SendMessageParams): Promise<TResponseData> {
     const runtimeType = globalThis.browser ?? globalThis.chrome;
-    if (checkChrome()) {
-        return callbackToPromise(runtimeType.runtime.sendMessage, args);
+    if (checkBrowser()) {
+        return runtimeType.runtime.sendMessage(args);
     }
-    return runtimeType.runtime.sendMessage(args);
+    return callbackToPromise(runtimeType.runtime.sendMessage, args);
 }
 
 function sendMessageFromTab<TResponseData = any>(tabId: number, ...args: SendMessageParams): Promise<TResponseData> {
     const runtimeType = globalThis.browser ?? globalThis.chrome;
-    if (checkChrome()) {
-        return callbackToPromise(runtimeType.tabs.sendMessage, [tabId, ...args]);
+    if (checkBrowser()) {
+        return runtimeType.tabs.sendMessage(tabId, args);
     }
-    return runtimeType.tabs.sendMessage(tabId, args);
+    return callbackToPromise(runtimeType.tabs.sendMessage, [tabId, ...args]);
 }
