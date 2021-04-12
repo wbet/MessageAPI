@@ -1,14 +1,11 @@
 /** @internal */
-export async function promiseToCallback(promise: Promise<any>, callback: (...args: any) => void) {
-    const result = await promise;
-    return callback(result);
-}
-
-/** @internal */
-export function callbackToPromise(func: (...args: any[]) => void, args: any[]): Promise<any> {
+export function tailCallbackToPromise(func: (...args: any[]) => void, args: any[]): Promise<any> {
     return new Promise((resolve, error) => {
         try {
             func(...args, (...results: any) => {
+                if (results.length === 1) {
+                    resolve(results[0]);
+                }
                 resolve(results);
             });
         } catch (e) {
@@ -31,7 +28,7 @@ export function checkBrowser() {
 export async function getCurrentTab() {
     const runtimeType = globalThis.browser ?? globalThis.chrome;
     const query = { active: true, currentWindow: true };
-    const tabs = checkChrome() ? ((await callbackToPromise(runtimeType.tabs.query, [query])) as chrome.tabs.Tab[]) : await runtimeType.tabs.query(query);
+    const tabs = checkChrome() ? ((await tailCallbackToPromise(runtimeType.tabs.query, [query])) as chrome.tabs.Tab[]) : await runtimeType.tabs.query(query);
     return tabs[0];
 }
 

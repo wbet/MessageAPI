@@ -1,43 +1,82 @@
 import { MessageLocation } from './enums/message-location';
 import { Message, MessagePath, MessagePathFilter, MessageReceivedCallback } from './interfaces/message.interface';
+import { checkBrowser } from './lib/helpers';
 
 /** Listens for messages from the background script */
-export function onMessageFromBackground<TData = any, TResponseData = any>(currentLocation: MessageLocation, filters: MessagePathFilter, callback: MessageReceivedCallback<TData, TResponseData>) {
+export function onMessageFromBackground<TData = any, TResponseData = any>(
+    currentLocation: MessageLocation,
+    filters: MessagePathFilter,
+    callback: MessageReceivedCallback<TData, TResponseData>,
+    preferredRuntime?: typeof chrome | typeof browser
+) {
     const messagePath: MessagePath = { source: MessageLocation.Background, destination: currentLocation, filters };
-    onMessage(messagePath, callback);
+    onMessage(messagePath, callback, preferredRuntime);
 }
 
 /** Listens for messages from the options page */
-export function onMessageFromOptions<TData = any, TResponseData = any>(currentLocation: MessageLocation, filters: MessagePathFilter, callback: MessageReceivedCallback<TData, TResponseData>) {
+export function onMessageFromOptions<TData = any, TResponseData = any>(
+    currentLocation: MessageLocation,
+    filters: MessagePathFilter,
+    callback: MessageReceivedCallback<TData, TResponseData>,
+    preferredRuntime?: typeof chrome | typeof browser
+) {
     const messagePath: MessagePath = { source: MessageLocation.Options, destination: currentLocation, filters };
-    onMessage(messagePath, callback);
+    onMessage(messagePath, callback, preferredRuntime);
 }
 
 /** Listens for messages from the popup page */
-export function onMessageFromPopup<TData = any, TResponseData = any>(currentLocation: MessageLocation, filters: MessagePathFilter, callback: MessageReceivedCallback<TData, TResponseData>) {
+export function onMessageFromPopup<TData = any, TResponseData = any>(
+    currentLocation: MessageLocation,
+    filters: MessagePathFilter,
+    callback: MessageReceivedCallback<TData, TResponseData>,
+    preferredRuntime?: typeof chrome | typeof browser
+) {
     const messagePath: MessagePath = { source: MessageLocation.Popup, destination: currentLocation, filters };
-    onMessage(messagePath, callback);
+    onMessage(messagePath, callback, preferredRuntime);
 }
 
 /** Listens for messages from the content script */
-export function onMessageFromContentScript<TData = any, TResponseData = any>(currentLocation: MessageLocation, filters: MessagePathFilter, callback: MessageReceivedCallback<TData, TResponseData>) {
+export function onMessageFromContentScript<TData = any, TResponseData = any>(
+    currentLocation: MessageLocation,
+    filters: MessagePathFilter,
+    callback: MessageReceivedCallback<TData, TResponseData>,
+    preferredRuntime?: typeof chrome | typeof browser
+) {
     const messagePath: MessagePath = { source: MessageLocation.Content, destination: currentLocation, filters };
-    onMessage(messagePath, callback);
+    onMessage(messagePath, callback, preferredRuntime);
 }
 
 /** Listens for messages from anywhere */
-export function onMessageAnywhere<TData = any, TResponseData = any>(filters: MessagePathFilter, callback: MessageReceivedCallback<TData, TResponseData>) {
+export function onMessageAnywhere<TData = any, TResponseData = any>(filters: MessagePathFilter, callback: MessageReceivedCallback<TData, TResponseData>, preferredRuntime?: typeof chrome | typeof browser) {
     const messagePath: MessagePath = { filters };
-    onMessage(messagePath, callback);
+    onMessage(messagePath, callback, preferredRuntime);
 }
 
 /** Listens for messages from custom sources and locations */
-export function onMessage<TData = any, TResponseData = any>(messagePath: MessagePath, callback: MessageReceivedCallback<TData, TResponseData>): void {
-    const runtimeType = globalThis.browser ?? globalThis.chrome;
+export function onMessage<TData = any, TResponseData = any>(messagePath: MessagePath, callback: MessageReceivedCallback<TData, TResponseData>, preferredRuntime?: typeof chrome | typeof browser): void {
+    const runtimeType = preferredRuntime ?? globalThis.browser ?? globalThis.chrome;
     runtimeType.runtime.onMessage.addListener((message: Message<TData>, sender, sendResponse) => {
         if (checkPath(messagePath, message) && checkFilters(messagePath, message)) {
-            callback(message.data, sender, sendResponse);
+            const response = callback(message.data, sender);
+
+            if (response instanceof Promise) {
+                return response;
+            }
+
+            if (response) {
+                return new Promise<TResponseData>((resolve) => {
+                    resolve(response);
+                });
+            }
         }
+        if (checkBrowser()) {
+            return new Promise<void>((resolve) => {
+                resolve(undefined);
+            });
+        }
+
+        sendResponse(undefined);
+        return true;
     });
 }
 

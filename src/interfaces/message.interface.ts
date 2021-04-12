@@ -21,4 +21,4 @@ export interface MessageOptions {
     options?: MessageSendOptions | MessageTabsSendOptions;
 }
 
-export type MessageReceivedCallback<TData = any, TResponseData = any> = (data: TData, sender: chrome.runtime.MessageSender | browser.runtime.MessageSender, sendResponse: (response?: TResponseData) => void) => void;
+export type MessageReceivedCallback<TData = any, TResponseData = any> = (data: TData, sender: chrome.runtime.MessageSender | browser.runtime.MessageSender) => TResponseData | Promise<TResponseData> | undefined;

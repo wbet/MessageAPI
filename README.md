@@ -1,10 +1,14 @@
 # Message API
 
-Overcharged wrapper over the functions of chrome's/browser's message APIs.
-This wrapper can be used with both the chrome and the browser namespace. The browser namespace takes priority if both are found.
+Message API is a strongly typed wrapper that provides a modern API based on `promises`, compatible with both Chromium and Firefox Message API, while keeping their native performance.
 
-All the functions will return a promise whenever possible.
-For example runtime.sendMessage on chrome uses a callback while on firefox returns a promise, this wrapper will return a promise for both of them.
+It can be used with both the `chrome` and the `browser` namespace. If both are found the `browser` namespace takes priority to provide the best performance.
+
+Regardless of the available namespace, all of the functions will return a `promise` if possible.
+For example `runtime.sendMessage` on Chrome uses a `callback` while on Firefox returns a `promise`, this library will return a `promise` for both of them.
+
+It also provides easy to use functions specifically created to remove the clutter of manually crafted filters for the messages used to get to that specific one that triggers the desired functions.
+Lastly, it takes care of edge cases and errors like [The message port closed before a response was received.](https://github.com/mozilla/webextension-polyfill/issues/130).
 
 # How to use
 
@@ -43,12 +47,7 @@ interface MessageOptions {
               frameId?: number;
           };
 }
-
-type MessageReceivedCallback<TData, TResponseData> = (
-    data: TData,
-    sender?: runtime.MessageSender, //property from chrome/browser API
-    sendResponse?: (response?: TResponseData) => void
-) => void;
+export type MessageReceivedCallback<TData = any, TResponseData = any> = (data: TData, sender: chrome.runtime.MessageSender | browser.runtime.MessageSender) => TResponseData | Promise<TResponseData> | undefined;
 ```
 
 ## Enums
@@ -281,3 +280,11 @@ import * as messageApi from '@wbet/message-api';
 This library will be improved over time with APIs like connect and sendNativeMessage.
 
 If you found any bug please open an issue and it will be addressed as soon as humanly possible.
+
+# Changelog
+
+## 1.0.5
+
+-   Fixed error [The message port closed before a response was received.](https://github.com/mozilla/webextension-polyfill/issues/130)
+-   Adjusted promise to callback function
+-   Added preferred namespace as optional parameter.
