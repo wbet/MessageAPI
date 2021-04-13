@@ -73,15 +73,15 @@ export function sendMessageTo<TData = any, TResponseData = any>(message: Message
     return sendMessage<TResponseData>(runtimeType, message, messageOptions?.options);
 }
 
-function sendMessage<TResponseData = any>(runtimeType: typeof chrome | typeof browser, ...args: SendMessageParams): Promise<TResponseData> | Promise<undefined> {
+function sendMessage<TResponseData = any>(runtimeType: typeof chrome | typeof browser, ...args: SendMessageParams): Promise<TResponseData | undefined> {
     if (checkBrowser()) {
         // @ts-ignore
         return (runtimeType as typeof browser).runtime.sendMessage(...args);
     }
-    return tailCallbackToPromise(runtimeType.runtime.sendMessage, args);
+    return tailCallbackToPromise(runtimeType.runtime.sendMessage, [...args]);
 }
 
-function sendMessageFromTab<TResponseData = any>(runtimeType: typeof chrome | typeof browser, tabId: number, ...args: SendMessageParams): Promise<TResponseData> | Promise<undefined> {
+function sendMessageFromTab<TResponseData = any>(runtimeType: typeof chrome | typeof browser, tabId: number, ...args: SendMessageParams): Promise<TResponseData | undefined> {
     if (checkBrowser()) {
         // @ts-ignore
         return (runtimeType as typeof browser).tabs.sendMessage(tabId, ...args);

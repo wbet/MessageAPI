@@ -59,17 +59,22 @@ export function onMessage<TData = any, TResponseData = any>(messagePath: Message
         if (checkPath(messagePath, message) && checkFilters(messagePath, message)) {
             const response = callback(message.data, sender);
 
+            // if we use browser we want to return a promise, on chrome we still use sendResponse
             if (response instanceof Promise) {
                 return response;
             }
 
             if (response) {
-                return new Promise<TResponseData>((resolve) => {
-                    resolve(response);
-                });
+                if (checkBrowser()) {
+                    return new Promise<TResponseData>((resolve) => {
+                        resolve(response);
+                    });
+                }
+                sendResponse(response);
+                return true;
             }
         }
-        if (checkBrowser()) {
+        if (runtimeType === browser && checkBrowser()) {
             return new Promise<void>((resolve) => {
                 resolve(undefined);
             });
