@@ -6,33 +6,36 @@ import { checkBrowser, getCurrentTab, tailCallbackToPromise } from './lib/helper
 export function sendMessageToBackground<TData = any, TResponseData = any>(
     data: TData,
     source: MessageLocation,
+    actionType?: string,
     messageOptions?: MessageOptions,
     filters?: MessagePathFilter,
     preferredRuntime?: typeof chrome | typeof browser
 ) {
-    return sendMessageTo<TData, TResponseData>({ data, source, destination: MessageLocation.Background, ...filters }, messageOptions, undefined, preferredRuntime);
+    return sendMessageTo<TData, TResponseData>({ data, source, destination: MessageLocation.Background, actionType, ...filters }, messageOptions, undefined, preferredRuntime);
 }
 
 /** Sends message to the options page */
 export function sendMessageToOptions<TData = any, TResponseData = any>(
     data: TData,
     source: MessageLocation,
+    actionType?: string,
     messageOptions?: MessageOptions,
     filters?: MessagePathFilter,
     preferredRuntime?: typeof chrome | typeof browser
 ) {
-    return sendMessageTo<TData, TResponseData>({ data, source, destination: MessageLocation.Options, ...filters }, messageOptions, undefined, preferredRuntime);
+    return sendMessageTo<TData, TResponseData>({ data, source, destination: MessageLocation.Options, actionType, ...filters }, messageOptions, undefined, preferredRuntime);
 }
 
 /** Sends message to the popup page */
 export function sendMessageToPopup<TData = any, TResponseData = any>(
     data: TData,
     source: MessageLocation,
+    actionType?: string,
     messageOptions?: MessageOptions,
     filters?: MessagePathFilter,
     preferredRuntime?: typeof chrome | typeof browser
 ) {
-    return sendMessageTo<TData, TResponseData>({ data, source, destination: MessageLocation.Popup, ...filters }, messageOptions, undefined, preferredRuntime);
+    return sendMessageTo<TData, TResponseData>({ data, source, destination: MessageLocation.Popup, actionType, ...filters }, messageOptions, undefined, preferredRuntime);
 }
 
 /** Sends message to a specific content script */
@@ -40,22 +43,24 @@ export function sendMessageToContentScript<TData = any, TResponseData = any>(
     tabId: number,
     data: TData,
     source: MessageLocation,
+    actionType?: string,
     messageOptions?: MessageOptions,
     filters?: MessagePathFilter,
     preferredRuntime?: typeof chrome | typeof browser
 ) {
-    return sendMessageTo<TData, TResponseData>({ data, source, destination: MessageLocation.Content, ...filters }, messageOptions, tabId, preferredRuntime);
+    return sendMessageTo<TData, TResponseData>({ data, source, destination: MessageLocation.Content, actionType, ...filters }, messageOptions, tabId, preferredRuntime);
 }
 
 /** Sends message to a the currently active webpage/content script */
 export function sendMessageToCurrentWebPage<TData = any, TResponseData = any>(
     data: TData,
     source: MessageLocation,
+    actionType?: string,
     messageOptions?: MessageOptions,
     filters?: MessagePathFilter,
     preferredRuntime?: typeof chrome | typeof browser
 ) {
-    return getCurrentTab().then((x) => sendMessageTo<TData, TResponseData>({ data, source, destination: MessageLocation.Content, ...filters }, messageOptions, x.id, preferredRuntime));
+    return getCurrentTab().then((x) => sendMessageTo<TData, TResponseData>({ data, source, destination: MessageLocation.Content, actionType, ...filters }, messageOptions, x.id, preferredRuntime));
 }
 
 /** Sends message to a custom location */

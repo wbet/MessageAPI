@@ -1,6 +1,6 @@
 {
     "name": "@wbet/message-api",
-    "version": "1.0.9",
+    "version": "1.0.10",
     "description": "Overcharged wrapper over the functions of chrome's/browser's message APIs",
     "types": "./dist/esm/index.d.ts",
     "main": "./dist/umd/index.min.js",

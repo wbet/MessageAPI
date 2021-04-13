@@ -5,6 +5,7 @@ export interface MessageSendOptions extends chrome.runtime.MessageOptions {}
 export interface MessageTabsSendOptions extends chrome.tabs.MessageSendOptions {}
 export interface Message<TData = any> extends MessagePath {
     data: TData;
+    actionType?: string;
 }
 
 export interface MessagePath {

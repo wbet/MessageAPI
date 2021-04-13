@@ -283,6 +283,11 @@ If you found any bug please open an issue and it will be addressed as soon as hu
 
 # Changelog
 
+## 1.0.10
+
+-   Added actions and action types. Actions are a map of functions to trigger as callback if the type is matched. Actions are optional.
+-   Small fixes
+
 ## 1.0.5
 
 -   Fixed error [The message port closed before a response was received.](https://github.com/mozilla/webextension-polyfill/issues/130)
