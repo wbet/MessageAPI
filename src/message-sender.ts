@@ -79,7 +79,7 @@ export function sendMessageTo<TData = any, TResponseData = any>(message: Message
 }
 
 function sendMessage<TResponseData = any>(runtimeType: typeof chrome | typeof browser, ...args: SendMessageParams): Promise<TResponseData | undefined> {
-    if (checkBrowser()) {
+    if (checkBrowser(runtimeType)) {
         // @ts-ignore
         return (runtimeType as typeof browser).runtime.sendMessage(...args);
     }
@@ -87,7 +87,7 @@ function sendMessage<TResponseData = any>(runtimeType: typeof chrome | typeof br
 }
 
 function sendMessageFromTab<TResponseData = any>(runtimeType: typeof chrome | typeof browser, tabId: number, ...args: SendMessageParams): Promise<TResponseData | undefined> {
-    if (checkBrowser()) {
+    if (checkBrowser(runtimeType)) {
         // @ts-ignore
         return (runtimeType as typeof browser).tabs.sendMessage(tabId, ...args);
     }

@@ -83,7 +83,7 @@ export function onMessage<TData = any, TResponseData = any>(
             }
 
             if (response) {
-                if (checkBrowser()) {
+                if (checkBrowser(runtimeType)) {
                     return new Promise<TResponseData>((resolve) => {
                         resolve(response);
                     });
@@ -92,7 +92,7 @@ export function onMessage<TData = any, TResponseData = any>(
                 return true;
             }
         }
-        if (runtimeType === browser && checkBrowser()) {
+        if (checkBrowser(runtimeType)) {
             return new Promise<void>((resolve) => {
                 resolve(undefined);
             });

@@ -15,20 +15,20 @@ export function tailCallbackToPromise(func: (...args: any[]) => void, args: any[
 }
 
 /** @internal */
-export function checkChrome() {
-    return !!globalThis.chrome;
+export function checkChrome(selectedRuntime: typeof chrome | typeof browser) {
+    return !!globalThis.chrome && selectedRuntime === globalThis.chrome;
 }
 
 /** @internal */
-export function checkBrowser() {
-    return !!globalThis.browser;
+export function checkBrowser(selectedRuntime: typeof chrome | typeof browser) {
+    return !!globalThis.browser && selectedRuntime === globalThis.browser;
 }
 
 /** @internal */
 export async function getCurrentTab() {
     const runtimeType = globalThis.browser ?? globalThis.chrome;
     const query = { active: true, currentWindow: true };
-    const tabs = checkChrome() ? ((await tailCallbackToPromise(runtimeType.tabs.query, [query])) as chrome.tabs.Tab[]) : await runtimeType.tabs.query(query);
+    const tabs = checkChrome(runtimeType) ? ((await tailCallbackToPromise(runtimeType.tabs.query, [query])) as chrome.tabs.Tab[]) : await runtimeType.tabs.query(query);
     return tabs[0];
 }
 
