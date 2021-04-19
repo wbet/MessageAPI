@@ -5,9 +5,8 @@ import { checkBrowser } from './lib/helpers';
 /** Listens for messages from the background script */
 export function onMessageFromBackground<TData = any, TResponseData = any>(
     currentLocation: MessageLocation,
-    filters: MessagePathFilter,
     callbackActions: { [actionType: string]: MessageReceivedCallback<TData, TResponseData> } | MessageReceivedCallback<TData, TResponseData>,
-
+    filters?: MessagePathFilter,
     preferredRuntime?: typeof chrome | typeof browser
 ) {
     const messagePath: MessagePath = { source: MessageLocation.Background, destination: currentLocation, filters };
@@ -17,9 +16,8 @@ export function onMessageFromBackground<TData = any, TResponseData = any>(
 /** Listens for messages from the options page */
 export function onMessageFromOptions<TData = any, TResponseData = any>(
     currentLocation: MessageLocation,
-    filters: MessagePathFilter,
     callbackActions: { [actionType: string]: MessageReceivedCallback<TData, TResponseData> } | MessageReceivedCallback<TData, TResponseData>,
-
+    filters?: MessagePathFilter,
     preferredRuntime?: typeof chrome | typeof browser
 ) {
     const messagePath: MessagePath = { source: MessageLocation.Options, destination: currentLocation, filters };
@@ -29,9 +27,8 @@ export function onMessageFromOptions<TData = any, TResponseData = any>(
 /** Listens for messages from the popup page */
 export function onMessageFromPopup<TData = any, TResponseData = any>(
     currentLocation: MessageLocation,
-    filters: MessagePathFilter,
     callbackActions: { [actionType: string]: MessageReceivedCallback<TData, TResponseData> } | MessageReceivedCallback<TData, TResponseData>,
-
+    filters?: MessagePathFilter,
     preferredRuntime?: typeof chrome | typeof browser
 ) {
     const messagePath: MessagePath = { source: MessageLocation.Popup, destination: currentLocation, filters };
@@ -41,9 +38,8 @@ export function onMessageFromPopup<TData = any, TResponseData = any>(
 /** Listens for messages from the content script */
 export function onMessageFromContentScript<TData = any, TResponseData = any>(
     currentLocation: MessageLocation,
-    filters: MessagePathFilter,
     callbackActions: { [actionType: string]: MessageReceivedCallback<TData, TResponseData> } | MessageReceivedCallback<TData, TResponseData>,
-
+    filters?: MessagePathFilter,
     preferredRuntime?: typeof chrome | typeof browser
 ) {
     const messagePath: MessagePath = { source: MessageLocation.Content, destination: currentLocation, filters };
@@ -52,8 +48,8 @@ export function onMessageFromContentScript<TData = any, TResponseData = any>(
 
 /** Listens for messages from anywhere */
 export function onMessageAnywhere<TData = any, TResponseData = any>(
-    filters: MessagePathFilter,
     callbackActions: { [actionType: string]: MessageReceivedCallback<TData, TResponseData> } | MessageReceivedCallback<TData, TResponseData>,
+    filters?: MessagePathFilter,
     preferredRuntime?: typeof chrome | typeof browser
 ) {
     const messagePath: MessagePath = { filters };

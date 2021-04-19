@@ -283,6 +283,10 @@ If you found any bug please open an issue and it will be addressed as soon as hu
 
 # Changelog
 
+## 1.0.14
+
+-   Readjusted order of parameters for listeners
+
 ## 1.0.10
 
 -   Added actions and action types. Actions are a map of functions to trigger as callback if the type is matched. Actions are optional.
